@@ -20,14 +20,16 @@ def current_time():
   return int(time.time())
 
 
+# deprecated by zliu
 def remove_non_ascii(s):
   """
   Dirty hack to replace non-ASCII characters in a string with spaces
-  """
   if s is None:
     return None
   return ''.join(c if ord(c) < 128 else ' ' for c in s)
 
+  """
+  return s 
 
 class AppDelegate(NSObject):
 
@@ -164,7 +166,7 @@ class EventSniffer:
         # substitute the rewound time to the window file pattern and write
         fname = self.options.active_window_file % (rewindTime(current_time()), )
         with open(fname, 'a') as f:
-          f.write('%s\n' % s)
+          f.write('%s\n' % s.encode('utf-8', 'ignore'))
 
 if __name__ == '__main__':
   option_list = [
